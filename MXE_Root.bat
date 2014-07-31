@@ -29,6 +29,11 @@ if "%MDK_ENV_BOOLEAN_GET_ADMIN%"=="" (
 	set /a MDK_ENV_BOOLEAN_GET_ADMIN=1
 )
 
+rem Checking proxy envirement.
+if "%MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED%"=="" (
+	set /a MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED=0
+)
+
 set HOME=%cd%
 set ORIGIN_HOME=%cd%
 
@@ -37,7 +42,7 @@ set __MDK_SCRIPTS_ROOT=%~dp0/scripts
 set __MDK_PROJECTS_ROOT=%~dp0/projects
 
 call %__MDK_SCRIPTS_ROOT%/windows/common.bat
-
+call %__MDK_SCRIPTS_ROOT%/windows/tools.bat
 
 PAUSE
 EXIT
