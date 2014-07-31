@@ -15,8 +15,6 @@ echo See the License for the specific language governing permissions and
 echo limitations under the License.
 echo.
 
-title %~n0
-
 cd /d %~dp0
 
 rem echo set dos windows size : cols=113, lines=150, color=black
@@ -29,6 +27,7 @@ rem set /a MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN=1
 rem set /a MDK_ENV_BOOLEAN_GET_ADMIN=1
 
 :LOOP
+	title %~n0
 	cmd
 	goto :LOOP
 

@@ -20,18 +20,27 @@ title %~n0
 rem echo set dos windows size : cols=113, lines=150, color=black
 rem mode con cols=113 lines=1500 & color 0f
 
+rem The command must moves to the more outer for avoidng missing set variables.
+setlocal enabledelayedexpansion
+
 rem 1 means included mingw, 0 means included cygwin.
 if "%MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN%"=="" (
 	set /a MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN=1
 )
+
 rem Requesting administrative privileges.
 if "%MDK_ENV_BOOLEAN_GET_ADMIN%"=="" (
-	set /a MDK_ENV_BOOLEAN_GET_ADMIN=1
+	set /a MDK_ENV_BOOLEAN_GET_ADMIN=0
 )
 
 rem Checking proxy envirement.
 if "%MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED%"=="" (
-	set /a MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED=0
+	set /a MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED=1
+)
+
+rem Checking whether or not inherit current envirements.
+if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT%"=="" (
+	set /a MDK_ENV_BOOLEAN_INHERIT_CURRENT=0
 )
 
 set HOME=%cd%
@@ -46,5 +55,19 @@ set __MDK_OUTPUTS_ROOT=%~dp0outputs
 call %__MDK_SCRIPTS_ROOT%/windows/common.bat
 call %__MDK_SCRIPTS_ROOT%/windows/tools.bat
 
+if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT%"=="1" (
+	echo sayMDK: Following commands will inherit current envirement variable.
+:LOOP
+	cmd
+	if %errorlevel%==0 (
+		goto :EOF
+	) else (
+		goto :LOOP
+	)
+)
 
 :EOF
+echo sayMDK: Following commands not inherit current envirement variable.
+setlocal disabledelayedexpansion
+
+EXIT

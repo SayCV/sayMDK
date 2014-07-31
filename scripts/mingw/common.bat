@@ -17,7 +17,7 @@ rem.
 
 set __MINGW_ROOT=D:/MinGW
 
-setlocal enabledelayedexpansion
+rem setlocal enabledelayedexpansion
 
 if '1'=='1' (
 	set "PATH=!__MINGW_ROOT!/bin;!PATH!"
@@ -27,6 +27,6 @@ if '1'=='1' (
 	echo Nothing.
 )
 
-setlocal disabledelayedexpansion
+rem setlocal disabledelayedexpansion
 
 :EOF
