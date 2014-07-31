@@ -142,10 +142,12 @@ if "%MDK_ENV_BOOLEAN_INCLUDED_TOOLS_QT%"=="1" (
 :: Golang Tool  
 :-------------------------------------
 if "%MDK_ENV_BOOLEAN_INCLUDED_TOOLS_GOLANG%"=="1" (
-	cd %__MDK_ROOT%/../repo_SayCV_UTILS/SayCV_MXE
-	set "GOLANG_ROOT=!SayCV_MXE_HOME_ABS!/usr/opt/go"
-	if exist "!TOOLS_HG_ROOT!" (
-		set "PATH=!PATH!;!TOOLS_HG_ROOT!"
+	set "GOLANG_ROOT=!__MDK_TOOLS_ROOT!/go"
+	set "GOLANG_ROOT=!__MDK_ROOT!/../repo_SayCV_UTILS/SayCV_MXE/usr/opt/go"
+	if exist "!GOLANG_ROOT!" (
+		set "GOPATH=!HOME!/working/golang"
+		set "PATH=!GOLANG_ROOT!/bin;!PATH!"
+		set "PATH=!GOLANG_ROOT!/pkg/tool/windows_386;!PATH!"
 		echo sayMDK: Adding Tools: Golang	Ver unkown.
 	) else (
 		echo sayMDK: Adding Tools: Golang:	Not support.

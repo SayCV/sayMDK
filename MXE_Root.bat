@@ -38,11 +38,13 @@ set HOME=%cd%
 set ORIGIN_HOME=%cd%
 
 set __MDK_ROOT=%~dp0
-set __MDK_SCRIPTS_ROOT=%~dp0/scripts
-set __MDK_PROJECTS_ROOT=%~dp0/projects
+set __MDK_SCRIPTS_ROOT=%~dp0scripts
+set __MDK_PROJECTS_ROOT=%~dp0projects
+set __MDK_TOOLS_ROOT=%~dp0tools
+set __MDK_OUTPUTS_ROOT=%~dp0outputs
 
 call %__MDK_SCRIPTS_ROOT%/windows/common.bat
 call %__MDK_SCRIPTS_ROOT%/windows/tools.bat
 
-PAUSE
-EXIT
+
+:EOF

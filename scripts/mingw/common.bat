@@ -21,7 +21,7 @@ setlocal enabledelayedexpansion
 
 if '1'=='1' (
 	set "PATH=!__MINGW_ROOT!/bin;!PATH!"
-	set "PATH=%__MINGW_ROOT%/msys/1.0/bin;%__MINGW_ROOT%/msys/1.0/local/bin;!PATH!"
+	set "PATH=!__MINGW_ROOT!/msys/1.0/bin;!__MINGW_ROOT!/msys/1.0/local/bin;!PATH!"
 	echo "On Windows, We are running under MinGW"
 ) else (
 	echo Nothing.
