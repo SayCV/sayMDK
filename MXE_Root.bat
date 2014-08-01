@@ -79,13 +79,12 @@ if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT%"=="1" (
 
 :_INHERIT_CURRENT_ENV_EOF
 	echo sayMDK: Following commands will inherit current envirement variable.
-	goto :_ROOT_EOF
+	goto :_MDK_ROOT_REAL_EOF
 
 :_NOT_INHERIT_CURRENT_ENV_EOF
 	echo sayMDK: Following commands not inherit current envirement variable.
 	setlocal disabledelayedexpansion
 	EXIT
-	goto :_ROOT_EOF
+	goto :_MDK_ROOT_REAL_EOF
 
-:_ROOT_EOF
-echo %PATH%
+:_MDK_ROOT_REAL_EOF
