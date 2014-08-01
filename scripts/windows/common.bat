@@ -30,8 +30,8 @@ if %MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED% ==1 (
 	echo "Enable http/s proxy, depends on Goagent work fine."
 )
 
-if "%MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN%"=="1" (
-	call "%~dp0../mingw/common.bat"
-)
+rem if "%MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN%"=="1" (
+rem 	call "%~dp0../mingw/common.bat"
+rem )
 
 :EOF

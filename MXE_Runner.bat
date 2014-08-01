@@ -23,8 +23,20 @@ rem mode con cols=113 lines=1500 & color 0f
 set HOME=%cd%
 set ORIGIN_HOME=%cd%
 
+rem default 1
 rem set /a MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN=1
 rem set /a MDK_ENV_BOOLEAN_GET_ADMIN=1
+
+rem default 0
+set /a MDK_ENV_BOOLEAN_INHERIT_CURRENT=1
+rem set /a MDK_ENV_BOOLEAN_INCLUDED_TOOLS_MS_VS=1
+
+if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT%"=="1" (
+	setlocal enabledelayedexpansion
+	set /a MDK_ENV_BOOLEAN_SETLOCAL_DONE=1
+	call %~dp0MXE_Root.bat
+)
+
 
 :LOOP
 	title %~n0

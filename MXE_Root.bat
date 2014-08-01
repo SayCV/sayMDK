@@ -20,9 +20,6 @@ title %~n0
 rem echo set dos windows size : cols=113, lines=150, color=black
 rem mode con cols=113 lines=1500 & color 0f
 
-rem The command must moves to the more outer for avoidng missing set variables.
-setlocal enabledelayedexpansion
-
 rem 1 means included mingw, 0 means included cygwin.
 if "%MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN%"=="" (
 	set /a MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN=1
@@ -38,10 +35,28 @@ if "%MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED%"=="" (
 	set /a MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED=1
 )
 
+:: Inherit and setlocal
+:-------------------------------------
 rem Checking whether or not inherit current envirements.
-if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT%"=="" (
-	set /a MDK_ENV_BOOLEAN_INHERIT_CURRENT=0
+if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT_ENV%"=="" (
+	set /a MDK_ENV_BOOLEAN_INHERIT_CURRENT_ENV=1
+	if not "%MDK_ENV_BOOLEAN_SETLOCAL_DONE%"=="1" (
+		echo sayMDK: Missing or Error set variable MDK_ENV_BOOLEAN_SETLOCAL_DONE.
+		rem exit 1
+	)
 )
+
+rem The command must moves to the more outer for avoidng missing set variables.
+if "%MDK_ENV_BOOLEAN_SETLOCAL_DONE%"=="" (
+	setlocal enabledelayedexpansion
+	set /a MDK_ENV_BOOLEAN_SETLOCAL_DONE=1
+	if not "%MDK_ENV_BOOLEAN_INHERIT_CURRENT_ENV%"=="1" (
+		echo sayMDK: Missing or Error set variable MDK_ENV_BOOLEAN_INHERIT_CURRENT_ENV.
+		exit 1
+	)
+)
+:-------------------------------------
+
 
 set HOME=%cd%
 set ORIGIN_HOME=%cd%
@@ -51,23 +66,26 @@ set __MDK_SCRIPTS_ROOT=%~dp0scripts
 set __MDK_PROJECTS_ROOT=%~dp0projects
 set __MDK_TOOLS_ROOT=%~dp0tools
 set __MDK_OUTPUTS_ROOT=%~dp0outputs
+set __MDK_WORK_ROOT=%~dp0working
 
 call %__MDK_SCRIPTS_ROOT%/windows/common.bat
 call %__MDK_SCRIPTS_ROOT%/windows/tools.bat
 
 if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT%"=="1" (
-	echo sayMDK: Following commands will inherit current envirement variable.
-:LOOP
-	cmd
-	if %errorlevel%==0 (
-		goto :EOF
-	) else (
-		goto :LOOP
-	)
+	goto :_INHERIT_CURRENT_ENV_EOF
+) else (
+	goto :_NOT_INHERIT_CURRENT_ENV_EOF
 )
 
-:EOF
-echo sayMDK: Following commands not inherit current envirement variable.
-setlocal disabledelayedexpansion
+:_INHERIT_CURRENT_ENV_EOF
+	echo sayMDK: Following commands will inherit current envirement variable.
+	goto :_ROOT_EOF
 
-EXIT
+:_NOT_INHERIT_CURRENT_ENV_EOF
+	echo sayMDK: Following commands not inherit current envirement variable.
+	setlocal disabledelayedexpansion
+	EXIT
+	goto :_ROOT_EOF
+
+:_ROOT_EOF
+echo %PATH%
