@@ -38,11 +38,31 @@ if "%MDK_ENV_BOOLEAN_INHERIT_CURRENT%"=="1" (
 	call %~dp0MXE_Root.bat
 )
 
+if "1"=="1" (
+	rem stock prediction program
+	go get github.com/go-sql-driver/mysql
+	go get github.com/gorilla/mux
+	go get github.com/gorilla/websocket
+	go get github.com/SayCV/stockBrain
+	
+	rem cd %ORIGIN_HOME%/working/golang/src/github.com/SayCV/stockBrain
+	cd %GOPATH%/src/github.com/SayCV/stockBrain
+	
+	go build main.go
+)
+
+:-------------------------------------
+:: EOF 
+:-------------------------------------
+if "1"=="1" (
+	goto :_MDK_RUNNER_REAL_EOF
+)
 
 :LOOP
 	title %~n0
 	cmd
 	goto :LOOP
 
-PAUSE
-EXIT
+:_MDK_RUNNER_REAL_EOF
+	PAUSE
+	EXIT

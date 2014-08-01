@@ -28,6 +28,8 @@ if %MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED% ==1 (
 	set http_proxy=http://127.0.0.1:8087/
 	set https_proxy=http://127.0.0.1:8087/
 	echo "Enable http/s proxy, depends on Goagent work fine."
+) else (
+	echo "Disable Goagent http/s proxy."
 )
 
 rem if "%MDK_ENV_BOOLEAN_INCLUDED_MINGW_OR_CYGWIN%"=="1" (

@@ -147,11 +147,11 @@ if "%MDK_ENV_BOOLEAN_INCLUDED_TOOLS_QT%"=="1" (
 :: Golang Tool  
 :-------------------------------------
 if "%MDK_ENV_BOOLEAN_INCLUDED_TOOLS_GOLANG%"=="1" (
-	set "GOLANG_ROOT=!__MDK_TOOLS_ROOT!/go"
-	if exist "!GOLANG_ROOT!" (
+	set "GOROOT=!__MDK_TOOLS_ROOT!/go"
+	if exist "!GOROOT!" (
 		set "GOPATH=!__MDK_WORK_ROOT!/golang"
-		set "PATH=!GOLANG_ROOT!/bin;!PATH!"
-		set "PATH=!GOLANG_ROOT!/pkg/tool/windows_386;!PATH!"
+		set "PATH=!GOROOT!/bin;!PATH!"
+		set "PATH=!GOROOT!/pkg/tool/windows_386;!PATH!"
 		echo sayMDK: Adding Tools: Golang	Ver unkown.
 	) else (
 		echo sayMDK: Adding Tools: Golang:	Not support.

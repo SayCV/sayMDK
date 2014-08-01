@@ -32,7 +32,7 @@ if "%MDK_ENV_BOOLEAN_GET_ADMIN%"=="" (
 
 rem Checking proxy envirement.
 if "%MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED%"=="" (
-	set /a MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED=1
+	set /a MDK_ENV_BOOLEAN_GOAGENT_PROXY_USED=0
 )
 
 :: Inherit and setlocal
